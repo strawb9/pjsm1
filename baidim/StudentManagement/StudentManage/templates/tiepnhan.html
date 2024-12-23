@@ -1,0 +1,61 @@
+{% extends 'staff.html' %}
+
+{% block staff %}
+
+
+<form method="post" action="/ThemHocSinh">
+    <div class="mb-3 mt-3 text-center fs-3">HỒ SƠ HỌC SINH</div>
+    {% if err_msg == "Lưu thành công" %}
+        <div class="alert alert-success">{{err_msg}}</div>
+    {% elif err_msg %}
+        <div class="alert alert-danger">{{err_msg}}</div>
+    {% endif %}
+    <div class="row container">
+        <div class="mb-3 mt-3 col-md-6">
+            <label class="form-label">Họ tên</label>
+            <input type="text" class="form-control" id="tenHs" placeholder="" name="tenHs">
+        </div>
+        <div class="mb-3 mt-3 col-md-6">
+            <label class="form-label">Giới tính</label>
+            <select id="gioiTinh" name="gioiTinh" class="form-control">
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+            </select>
+        </div>
+    </div>
+    <div class="row container">
+        <div class="mb-3 mt-3 col-md-6">
+            <label class="form-label">Ngày sinh</label>
+            <input type="date" class="form-control" id="ngaysinh" placeholder="dd/mm/yyyy" name="ngaysinh">
+        </div>
+        <div class="mb-3 mt-3 col-md-6">
+            <label class="form-label">Địa chỉ</label>
+            <input type="text" class="form-control" id="diaChi" placeholder="" name="diaChi">
+        </div>
+    </div>
+    <div class="row container">
+        <div class="mb-3 mt-3 col-md-6">
+            <label class="form-label">Số điện thoại</label>
+            <input type="text" class="form-control" id="phone" placeholder="0123456789" name="phone">
+        </div>
+        <div class="mb-3 mt-3 col-md-6">
+            <label class="form-label">Email</label>
+            <input type="text" class="form-control" id="email" placeholder="abc@gmail.com" name="email">
+        </div>
+    </div>
+    <div class="row container">
+        <div class="mb-3 mt-3 col-md-6">
+            <label class="form-label">Chọn khối</label>
+            <select id="khoi" name="khoi" class="form-control">
+                <option value="1">10</option>
+                <option value="2">11</option>
+                <option value="3">12</option>
+            </select>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary ms-4">Lưu</button>
+    <button type="submit" class="btn btn-primary ms-4">Thoát</button>
+</form>
+
+{% endblock %}
