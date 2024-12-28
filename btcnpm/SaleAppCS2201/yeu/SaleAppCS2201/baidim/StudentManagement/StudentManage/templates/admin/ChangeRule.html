@@ -1,0 +1,48 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+
+<div class="mb-3 mt-3 col-md-4">
+    <label class="form-label">Sĩ số tối đa</label>
+    <input type="number" class="form-control" id="quantity" placeholder="" name="quantity" value="{{quantity}}">
+</div>
+<div class="mb-3 mt-3 col-md-4">
+    <label class="form-label">Tuổi nhỏ nhất</label>
+    <input type="number" class="form-control" id="min_age" placeholder="" name="min_age" value="{{min_age}}">
+</div>
+<div class="mb-3 mt-3 col-md-4">
+    <label class="form-label">Tuổi lớn nhất</label>
+    <input type="number" class="form-control" id="max_age" placeholder="" name="max_age" value="{{max_age}}">
+</div>
+<button type="submit" class="btn btn-primary ms-4 mt-3 mb-3" onclick="changeRule()">Thay đổi</button>
+<div id="result"></div>
+
+<script>
+    function changeRule(){
+        fetch("/api/changeRule", {
+            method: "post",
+            body: JSON.stringify({
+                "quantity": document.getElementById('quantity').value,
+                "min_age": document.getElementById('min_age').value,
+                "max_age": document.getElementById('max_age').value
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function(res) {
+            return res.json();
+        }).then(function(data) {
+            result = document.getElementById('result')
+            if(data.status ===200)
+            {
+                result.innerHTML = `<div class="alert alert-danger">${data.content}</div>`
+            }
+            else
+            {
+                result.innerHTML = `<div class="alert alert-success">${data.content}</div>`
+            }
+        });
+    }
+</script>
+
+{% endblock %}

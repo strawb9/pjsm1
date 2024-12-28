@@ -1,0 +1,80 @@
+{% extends 'layout/base_gv.html' %}
+
+{% block title %}Nhập điểm{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/css/nhapdiem.css"/>
+{% endblock %}
+
+{% block content %}
+
+<h2>NHẬP ĐIỂM</h2>
+<div class="row">
+    <div class="col-md-6">
+        <label style="font-weight: bold;">Chọn lớp</label>
+        <select id="timkiemlop" name="timkiemlop" class="form-control">
+            {% for c in classes %}
+            <option value="{{c.lop_id}}">{{c.tenLop}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label style="font-weight: bold;">Chọn cột 15 phút</label>
+            <br>
+            <select id="num_row_15m" class="form-control">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label style="font-weight: bold;">Chọn cột 45 phút</label>
+            <br>
+            <select id="num_row_45m" class="form-control">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </div>
+    </div>
+</div>
+<br>
+<div class="col-md-6 mt-2">
+    <button type="submit" class="btn btn-primary ms-4 mt-3 mb-3" onclick="Timkiemlop()" id="bt1">Tìm kiếm</button>
+</div>
+<h2 class="text-center">Bảng điểm môn học</h2>
+<h4 class="text-center" id="tenLop"></h4>
+<div class="row">
+    <div class="col-md-6">
+        <label style="font-weight: bold;">Chọn môn học</label>
+        <select id="monHoc_id" name="monHoc_id" class="form-control">
+            {% for s in subjects %}
+            <option value="{{s.monHoc_id}}">{{s.tenMH}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-6">
+        <label style="font-weight: bold;">Chọn học kỳ</label>
+        <br>
+        <select id="hocki_id" name="hocki_id" class="form-control">
+            {% for s in semesters %}
+            <option value="{{s.hocki_id}}">{{s.tenHK}}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+<br>
+<table class="table" id="input_score">
+    <tr id="table_col">
+        <th>ID</th>
+        <th>Họ tên</th>
+    </tr>
+</table>
+<button type="submit" class="btn btn-primary ms-4 mt-3 mb-3 table_score" style="display: none"
+        onclick="Luudiem()">Lưu điểm
+</button>
+
+{% endblock %}
