@@ -1,0 +1,35 @@
+<h2>Trường THPT Nguyễn Trãi</h2>
+<ul>
+    {% if current_user.is_authenticated %}
+
+    <li><a href="/home_gv"><i class="fa-solid fa-house"></i> Trang chủ</a></li>
+<!--    <li><a href="/quanlymonhoc"><i class="fa-solid fa-book-open"></i> Quản lý môn học</a></li>-->
+    <li><a href="/Thongkediem"><i class="fa-solid fa-pen"></i> Xem báo cáo</a></li>
+    <li><a href="/Thaydoiqd"><i class="fa-solid fa-pen"></i> Quản lý quy định</a></li>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <li>
+        <a href="#">
+            <i class="fa-solid fa-person font-weight"></i>
+            <span class="ms-2">{{ current_user.hoTen_u }}</span>
+        </a>
+    </li>
+    <div class="logout">
+        <li><a href="/logout"
+               style="color: white; background-color: #5064e2; padding: 10px; border-radius: 5px; text-align: center;">Đăng
+            xuất</a>
+        </li>
+    </div>
+
+    {% else %}
+    <div class="logout">
+        <li><a href="/login"
+               style="color: white; background-color: #5064e2; padding: 10px; border-radius: 5px; text-align: center;">Đăng
+            nhập</a></li>
+    </div>
+    {% endif %}
+
+</ul>
