@@ -1,61 +1,61 @@
-{% extends 'staff.html' %}
-
-{% block staff %}
+{% extends 'layout/base_nv.html' %}
 
 
+{% block title %}Tiếp nhận{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/css/tiepnhan.css"/>
+{% endblock %}
+
+{% block content %}
+<h2>TIẾP NHẬN HỌC SINH</h2>
 <form method="post" action="/ThemHocSinh">
-    <div class="mb-3 mt-3 text-center fs-3">HỒ SƠ HỌC SINH</div>
     {% if err_msg == "Lưu thành công" %}
-        <div class="alert alert-success">{{err_msg}}</div>
+    <div class="alert alert-success">{{err_msg}}</div>
     {% elif err_msg %}
-        <div class="alert alert-danger">{{err_msg}}</div>
+    <div class="alert alert-danger">{{err_msg}}</div>
     {% endif %}
-    <div class="row container">
-        <div class="mb-3 mt-3 col-md-6">
-            <label class="form-label">Họ tên</label>
-            <input type="text" class="form-control" id="tenHs" placeholder="" name="tenHs">
-        </div>
-        <div class="mb-3 mt-3 col-md-6">
-            <label class="form-label">Giới tính</label>
-            <select id="gioiTinh" name="gioiTinh" class="form-control">
-                <option value="Nam">Nam</option>
-                <option value="Nữ">Nữ</option>
-            </select>
-        </div>
+    <div class="form-group">
+        <label for="tenHs">Họ và tên:</label>
+        <input type="text" id="tenHs" name="tenHs" placeholder="Nhập họ và tên" required>
     </div>
-    <div class="row container">
-        <div class="mb-3 mt-3 col-md-6">
-            <label class="form-label">Ngày sinh</label>
-            <input type="date" class="form-control" id="ngaysinh" placeholder="dd/mm/yyyy" name="ngaysinh">
-        </div>
-        <div class="mb-3 mt-3 col-md-6">
-            <label class="form-label">Địa chỉ</label>
-            <input type="text" class="form-control" id="diaChi" placeholder="" name="diaChi">
-        </div>
+    <div class="form-group">
+        <label class="form-label">Ngày sinh</label>
+        <input type="date" class="form-control" id="ngaysinh" placeholder="dd/mm/yyyy" name="ngaysinh">
     </div>
-    <div class="row container">
-        <div class="mb-3 mt-3 col-md-6">
-            <label class="form-label">Số điện thoại</label>
-            <input type="text" class="form-control" id="phone" placeholder="0123456789" name="phone">
-        </div>
-        <div class="mb-3 mt-3 col-md-6">
-            <label class="form-label">Email</label>
-            <input type="text" class="form-control" id="email" placeholder="abc@gmail.com" name="email">
-        </div>
+    <div class="form-group">
+        <label for="phone">Số điện thoại:</label>
+        <input type="text" id="phone" name="phone" placeholder="Nhập số điện thoại" required>
     </div>
-    <div class="row container">
-        <div class="mb-3 mt-3 col-md-6">
-            <label class="form-label">Chọn khối</label>
-            <select id="khoi" name="khoi" class="form-control">
-                <option value="1">10</option>
-                <option value="2">11</option>
-                <option value="3">12</option>
-            </select>
-        </div>
+    <div class="form-group">
+        <label class="form-label">Giới tính</label>
+        <select id="gioiTinh" name="gioiTinh" class="form-control">
+            <option value="Nam">Nam</option>
+            <option value="Nữ">Nữ</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="diaChi">Địa chỉ:</label>
+        <input type="text" id="diaChi" name="diaChi" placeholder="Nhập địa chỉ" required>
+    </div>
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Nhập email" required>
     </div>
 
-    <button type="submit" class="btn btn-primary ms-4">Lưu</button>
-    <button type="submit" class="btn btn-primary ms-4">Thoát</button>
+
+    <div class="form-group">
+        <label class="form-label col-md-4">Chọn số khối </label>
+        <select id="khoi" name="khoi" class="form-control">
+            <option value="1">10</option>
+            <option value="2">11</option>
+            <option value="3">12</option>
+        </select>
+    </div>
+    <div class="form-buttons">
+        <button type="submit" class="save">Lưu</button>
+    </div>
+
 </form>
 
 {% endblock %}

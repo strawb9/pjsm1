@@ -2,14 +2,19 @@
 <ul>
     {% if current_user.is_authenticated %}
 
-    <li><a href="/"><i class="fa-solid fa-house"></i> Trang chủ</a></li>
-    <!--    <li><a href="/Themhocsinh"><i class="fa-solid fa-book-open"></i> Tiếp nhận học sinh</a></li>-->
-    <!--    <li><a href="/Dieuchinhlop"><i class="fa-solid fa-pen"></i> Điều chỉnh lớp học</a></li>-->
-    <!--    <li>-->
-    <!--        <a href="#">-->
-    <!--            <i class="fa-solid fa-person font-weight"></i>-->
-    <!--            <span class="ms-2">{{ current_user.hoTen_u }}</span>-->
-    <!--        </a>-->
+    <li><a href="/home_gv"><i class="fa-solid fa-house"></i> Trang chủ</a></li>
+    <li><a href="/Nhapdiem"><i class="fa-solid fa-book-open"></i> Nhập điểm</a></li>
+    <li><a href="/Xuatdiem"><i class="fa-solid fa-pen"></i> Xuất điểm</a></li>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <li>
+        <a href="#">
+            <i class="fa-solid fa-person font-weight"></i>
+            <span class="ms-2">{{ current_user.hoTen_u }}</span>
+        </a>
     </li>
     <div class="logout">
         <li><a href="/logout"
@@ -23,9 +28,7 @@
         <li><a href="/login"
                style="color: white; background-color: #5064e2; padding: 10px; border-radius: 5px; text-align: center;">Đăng
             nhập</a></li>
-    </div>
 
-    <div class="logout">
         <li><a href="/dangky"
                style="color: white; background-color: #5064e2; padding: 10px; border-radius: 5px; text-align: center;">Đăng
             ký</a></li>

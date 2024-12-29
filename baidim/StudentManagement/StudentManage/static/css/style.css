@@ -39,58 +39,14 @@
         .sidebar ul li a:hover {
             background-color: #777777;/* Di chuyen chuot do la no dam len */
         }
-
         .content {
             width: 75%; /* Chiếm 70% màn hình */
             background-color: #f4f4f4; /* Màu nền content */
             padding: 20px;
-            font-size: 15px;
         }
-
-        .content h2 {
+        .content p{
+            font-size: 100px;
+            font-family: Arial sans-serif;
             text-align: center;
-            margin-bottom: 10px;
             font-weight: bold;
-        }
-
-        .form-group {
-            margin-bottom: 10px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            width: 100%;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .form-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-
-        .form-buttons .save {
-            background-color: #5064e2;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .form-buttons .exit {
-            background-color: #ccc;
-            color: black;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
         }

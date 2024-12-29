@@ -1,27 +1,37 @@
-{% extends 'teacher.html' %}
+{% extends 'layout/base_gv.html' %}
 
-{% block teacher %}
+{% block title %}Xuất điểm{% endblock %}
 
+{% block css %}
+<link rel="stylesheet" href="/static/css/nhapdiem.css"/>
+{% endblock %}
 
-<div class="row container">
-    <label class="form-label col-md-4">Chọn lớp</label>
-    <select id="lop_id" name="lop_id" class="form-control col-md-4">
-        {% for c in classes %}
-        <option value="{{c.lop_id}}">{{c.tenLop}}</option>
-        {% endfor %}
-    </select>
-    <label class="form-label col-md-4">Chọn năm học</label>
-    <select id="hocki_id" name="hocki_id" class="form-control col-md-4">
-        <option value="1">Năm học 2020-2021</option>
-        <option value="3">Năm học 2021-2022</option>
-        <option value="5">Năm học 2022-2023</option>
-        <option value="7">Năm học 2023-2024</option>
-    </select>
-</div>
-<button type="submit" class="btn btn-primary ms-4 mt-3 mb-3" onclick="printScores()">Xuất điểm</button>
+{% block content %}
+<h2 class="text-center">Xuất Điểm </h2>
 
+<label>Lớp</label>
+<br>
+<select id="lop_id" name="lop_id" class="form-control col-md-4">
+    {% for c in classes %}
+    <option value="{{c.lop_id}}">{{c.tenLop}}</option>
+    {% endfor %}
+</select>
+<br>
+<br>
+<label class="form-label col-md-4">Chọn năm học</label>
+<select id="hocki_id" name="hocki_id" class="form-control col-md-4">
+    <option value="1">Năm học 2021-2022</option>
+    <option value="3">Năm học 2022-2023</option>
+    <option value="5">Năm học 2023-2024</option>
+    <option value="7">Năm học 2024-2025</option>
+</select>
+<br>
+<br>
+<button type="submit" class="btn btn-primary ms-4 mt-3 mb-3" onclick="Xuatdiemm()">Xuất điểm</button>
+<br>
+<br>
 <div id="result" style="display:none">
-    <h1 class="text-center">BẢNG ĐIỂM MÔN HỌC</h1>
+    <h2 class="text-center">BẢNG ĐIỂM MÔN HỌC</h2>
     <div id="schoolyear" class="text-center"></div>
     <table id="table_result" class="table table-hover table-bordered">
         <tr>
@@ -36,3 +46,5 @@
 
 
 {% endblock %}
+
+

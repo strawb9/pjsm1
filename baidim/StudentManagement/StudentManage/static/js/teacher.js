@@ -1,14 +1,13 @@
-
 add_column = 0
 quantity_student = 0
 quantity_row = 0
 
 
-function searchClass(){
-    fetch("/api/searchClass", {
+function Timkiemlop(){
+    fetch("/api/Timkiemlop", {
         method: "post",
         body: JSON.stringify({
-            "searchclass" : document.getElementById('searchclass').value,
+            "timkiemlop" : document.getElementById('timkiemlop').value,
             "num_row_15m" : document.getElementById('num_row_15m').value,
             "num_row_45m" : document.getElementById('num_row_45m').value
         }),
@@ -31,9 +30,9 @@ function searchClass(){
             a[0].remove()
         }
 
-        addColumns(data[0].num_row_15m, 'Điểm 15 phút')
-        addColumns(data[0].num_row_45m, 'Điểm 45 phút')
-        addColumns(1, 'Điểm cuối kỳ')
+        themcot(data[0].num_row_15m, 'Điểm 15 phút')
+        themcot(data[0].num_row_45m, 'Điểm 45 phút')
+        themcot(1, 'Điểm cuối kỳ')
 
         b=document.getElementsByClassName('add_row')
         while(b.length!=0){
@@ -74,7 +73,7 @@ function searchClass(){
     });
 }
 
-function addColumns(quantity, name){
+function themcot(quantity, name){
     table_col = document.getElementById('table_col')
     for(let i = 0; i < quantity; i++)
     {
@@ -86,11 +85,11 @@ function addColumns(quantity, name){
     }
 }
 
-function saveScores(){
-    fetch("/api/saveScores", {
+function Luudiem(){
+    fetch("/api/Luudiem", {
         method: "post",
         body: JSON.stringify({
-            "scores": getScores(),
+            "scores": getDiem(),
             "monHoc_id": document.getElementById('monHoc_id').value,
             "hocki_id": document.getElementById('hocki_id').value
         }),
@@ -104,7 +103,7 @@ function saveScores(){
     });
 }
 
-function getScores(){
+function getDiem(){
     var arr = []
     for(var i = 0; i < quantity_student; i++)
     {
@@ -119,8 +118,8 @@ function getScores(){
     return arr
 }
 
-function printScores(){
-    fetch("/api/printScores", {
+function Xuatdiemm(){
+    fetch("/api/Xuatdiemm", {
         method: "post",
         body: JSON.stringify({
             "lop_id": document.getElementById('lop_id').value,

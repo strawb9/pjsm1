@@ -6,18 +6,24 @@ import enum
 import hashlib
 
 
+class Base(db.Model):
+    __abstract__ = True
+    id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
+
 class UserRoleEnum(enum.Enum):
     ADMIN = 1
     STAFF = 2
     TEACHER = 3
 
+class User(Base, UserMixin):
+    hoTen_u = Column(String(50), nullable=False)
+    gioiTinh_u = Column(Boolean)
+    email_u = Column(String(50), nullable=False, unique=True)
+    sdt_u = Column(String(12), nullable=False)
+    matKhau_u = Column(String(50), nullable=False)
+    tenDangNhap = Column(String(150), nullable=False, unique=True)#unique giong primarykey nhung duoc phep thay doi
+    user_role = Column(Enum(UserRoleEnum))
 
-class User(db.Model, UserMixin):
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String(50), nullable=True)
-    username = Column(String(50), nullable=False, unique=True)
-    password = Column(String(50), nullable=False)
-    user_role = Column(Enum(UserRoleEnum), nullable=False)
 
     def __str__(self):
         self.name
@@ -33,6 +39,10 @@ class NhanVienTruong(User):
     nv_id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     user_id = Column(Integer, ForeignKey(User.id), unique=True)
     vaiTro = Column(String(50), nullable=False)
+
+class QuyDinh(Base):
+    tenQD=Column(String(50),nullable=False)
+    moTa = Column(String(50), nullable=False)
 
 
 class Khoi(db.Model):
@@ -76,7 +86,7 @@ class MonHoc(db.Model):
     monHoc_id = Column(Integer, primary_key=True, autoincrement=True)
     tenMH = Column(String(100), nullable=False)
     tests = relationship('Test', backref='MonHoc', lazy=True)
-    teachers = relationship('GiaoVien', backref='MonHoc', lazy=True)
+    # teachers = relationship('GiaoVien', backref='MonHoc', lazy=True)
 
 
 class GiaoVien(db.Model):
@@ -85,7 +95,7 @@ class GiaoVien(db.Model):
     user_id = Column(Integer, ForeignKey(User.id), unique=True)
     boMon = Column(String(50), nullable=False)
     tenGV = Column(String(50), nullable=False)
-    monHoc_id = Column(Integer, ForeignKey(MonHoc.monHoc_id), nullable=False)
+    # monHoc_id = Column(Integer, ForeignKey(MonHoc.monHoc_id), nullable=False)
 
 
 class Test(db.Model):
@@ -102,7 +112,7 @@ lop_giaovien = db.Table('lop_giaovien',
                         Column('lop_id', Integer, ForeignKey(HocSinh.id), primary_key=True),
                         Column('giaoVien_id', Integer, ForeignKey(GiaoVien.giaoVien_id), primary_key=True))
 
-hocsinh_giaovien = db.Table('hocsinh_monhoc',
+hocsinh_monhoc = db.Table('hocsinh_monhoc',
                             Column('hs_id', Integer, ForeignKey(HocSinh.id), primary_key=True),
                             Column('monHoc_id', Integer, ForeignKey(MonHoc.monHoc_id), primary_key=True))
 
@@ -110,16 +120,27 @@ hs_lop = db.Table('hs_lop',
                   Column('hs_id', Integer, ForeignKey(HocSinh.id), primary_key=True),
                   Column('lop_id', Integer, ForeignKey(Lop.lop_id), primary_key=True))
 
+
+monhoc_giaovien = db.Table('monhoc_giaovien',
+                        Column('monHoc_id', Integer, ForeignKey(MonHoc.monHoc_id), primary_key=True),
+                        Column('giaoVien_id', Integer, ForeignKey(GiaoVien.giaoVien_id), primary_key=True))
+
+
+
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
 
-        u1 = User(name='Admin', username='admin',
-                  password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()), user_role=UserRoleEnum.ADMIN)
-        u2 = User(name='Staff', username='staff',
-                  password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()), user_role=UserRoleEnum.STAFF)
-        u3 = User(name='Teacher', username='teacher',
-                  password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()), user_role=UserRoleEnum.TEACHER)
+        u1 = User(hoTen_u="Diem", gioiTinh_u=0, email_u="diem@gmail.com", sdt_u="093444111",
+                  matKhau_u=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()), tenDangNhap='diem',
+                  user_role='TEACHER')
+        u2 = User(hoTen_u="Yen", gioiTinh_u=0, email_u="Yen@gmail.com", sdt_u="093412344",
+                  matKhau_u=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()), tenDangNhap='yen',
+                  user_role='ADMIN')
+        u3 = User(hoTen_u="Duy", gioiTinh_u=1, email_u="duy@gmail.com", sdt_u="093412322",
+                  matKhau_u=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()), tenDangNhap='duy',
+                  user_role='STAFF')
         db.session.add_all([u1, u2, u3])
         db.session.commit()
 
@@ -165,4 +186,10 @@ if __name__ == '__main__':
         s7 = HocKi(tenHK="Học kỳ 1 năm học 2024-2025")
         s8 = HocKi(tenHK="Học kỳ 2 năm học 2024-2025")
         db.session.add_all([s1, s2, s3, s4, s5, s6, s7, s8])
+        db.session.commit()
+
+        s1 = QuyDinh(tenQD="Sĩ số tối đa", moTa="40")
+        s2 = QuyDinh(tenQD="Số tuổi tối thiểu", moTa="15")
+        s3 = QuyDinh(tenQD="Số tuổi tối đa", moTa="20")
+        db.session.add_all([s1, s2, s3])
         db.session.commit()
