@@ -91,6 +91,38 @@ def get_semester_by_id(id):
 def get_khoi():
     return Khoi.query.all()
 
+def get_subject_report(subject_id, semester_id):
+    """
+    Trả về báo cáo tổng kết môn học.
+    """
+    from sqlalchemy.sql import func, case
+    from StudentManage.models import Test, HocSinh, Lop
+
+    # Truy vấn dữ liệu
+    data = db.session.query(
+        Lop.tenLop.label('lop'),
+        func.count(Test.hs_id).label('si_so'),
+        func.sum(case([(Test.diemm >= 5, 1)], else_=0)).label('so_luong_dat')
+    ).join(HocSinh, HocSinh.id == Test.hs_id) \
+     .join(Lop, Lop.lop_id == HocSinh.lop_id) \
+     .filter(Test.monHoc_id == subject_id, Test.hocki_id == semester_id) \
+     .group_by(Lop.tenLop).all()
+
+    # Tính tỷ lệ và định dạng kết quả
+    result = []
+    for row in data:
+        ty_le = (row.so_luong_dat / row.si_so) * 100 if row.si_so > 0 else 0
+        result.append({
+            'lop': row.lop,
+            'si_so': row.si_so,
+            'so_luong_dat': row.so_luong_dat,
+            'ty_le': round(ty_le, 2)
+        })
+    return result
+
+app.jinja_env.globals.update(enumerate=enumerate)
+
+
 
 def calc_semester_score_average(lop_id, hocki_id):
     student = get_student_by_class(lop_id)
